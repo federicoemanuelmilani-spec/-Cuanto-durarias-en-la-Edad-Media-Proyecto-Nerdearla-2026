@@ -4,11 +4,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "¿Cuánto durarías en la Edad Media? 🏰",
   description:
-    "Quiz de 1 minuto: respondé 5 preguntas y descubrí tu profesión medieval, tu destino y un logro para compartir.",
+    "5 preguntas. 1 minuto. ¿Cuánto durarías en la Edad Media? Descubrí tu profesión, cuánto sobrevivirías y cuál sería tu desenlace.",
   openGraph: {
     title: "¿Cuánto durarías en la Edad Media? 🏰",
     description:
-      "5 preguntas, 1 minuto. Profesión, destino y logro desbloqueado incluidos.",
+      "5 preguntas. 1 minuto. ¿Cuánto durarías en la Edad Media? Descubrí tu profesión, cuánto sobrevivirías y cuál sería tu desenlace.",
     locale: "es_AR",
     type: "website",
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "¿Cuánto durarías en la Edad Media? 🏰",
     description:
-      "5 preguntas, 1 minuto. Profesión, destino y logro desbloqueado incluidos.",
+      "5 preguntas. 1 minuto. ¿Cuánto durarías en la Edad Media? Descubrí tu profesión, cuánto sobrevivirías y cuál sería tu desenlace.",
   },
 };
 
