@@ -1,62 +1,31 @@
-# Next.js + Webflow Cloud
+# 🏰 ¿Cuánto durarías en la Edad Media?
 
-Example app for [Webflow Cloud](https://webflow.com/cloud): a Next.js + React project with OpenNext for Cloudflare and Webflow deploy tooling.
+Quiz humorístico que calcula cuánto sobrevivirías si te transportaran a la Edad Media, según tus respuestas a 5 preguntas. Proyecto hecho para el **App Challenge de Webflow en Nerdearla 2026**.
 
-[![Deploy to Webflow](https://webflow.com/img/deploy-dark.svg)](https://webflow.com/dashboard/cloud/deploy?repo=https://github.com/Webflow-Examples/hello-world-nextjs)
+🔗 **Probalo acá: https://cuanto-durarias.webflow.io
 
-## Project structure
+## Qué hace
 
-```text
-.
-├── public/
-│   ├── next.svg
-│   └── webflow.svg
-├── src/
-│   └── app/
-│       ├── favicon.ico
-│       ├── globals.css
-│       ├── layout.tsx
-│       └── page.tsx
-├── nextjs/
-│   ├── public/
-│   │   └── next.svg
-│   ├── src/
-│   │   └── app/
-│   │       ├── favicon.ico
-│   │       ├── globals.css
-│   │       ├── layout.tsx
-│   │       └── page.tsx
-│   ├── cloudflare-env.d.ts
-│   ├── eslint.config.mjs
-│   ├── next.config.ts
-│   ├── open-next.config.ts
-│   ├── package.json
-│   ├── postcss.config.mjs
-│   ├── tsconfig.json
-│   ├── webflow.json
-│   └── wrangler.json
-├── cloudflare-env.d.ts
-├── eslint.config.mjs
-├── next.config.ts
-├── open-next.config.ts
-├── package.json
-├── postcss.config.mjs
-├── tsconfig.json
-├── webflow.json
-└── wrangler.json
-```
+- 5 preguntas rápidas sobre hábitos y decisiones cotidianas
+- Calcula un perfil de conocimiento, supervivencia y adaptación
+- Asigna una profesión medieval, un logro y una causa de muerte con humor
+- Guarda cada resultado en una base de datos real y muestra un porcentaje: "durarías más que el X% del reino"
+- Tarjeta compartible pensada para captura de pantalla
 
-## Commands
+## Stack técnico
 
-| Command | Action |
-| --- | --- |
-| `npm install` | Install dependencies. |
-| `npm run dev` | Start the Next.js dev server ([http://localhost:3000](http://localhost:3000)). |
-| `npm run build` | Create a production build. |
-| `npm run start` | Run the production server locally (after `npm run build`). |
+- **Next.js 15** + React 19
+- **Webflow Cloud** (Cloudflare Workers) para el despliegue
+- **SQLite (D1)** para guardar resultados y calcular el porcentaje en tiempo real
 
+## Correr el proyecto localmente
 
-## Learn more
+| Comando | Qué hace |
+|---|---|
+| `npm install` | Instala las dependencias |
+| `npm run dev` | Corre el servidor de desarrollo en `http://localhost:3000` |
+| `npm run build` | Genera el build de producción |
 
-- [Next.js documentation](https://nextjs.org/docs)
-- [Webflow Cloud](https://webflow.com/cloud)
+## Créditos
+
+Hecho por Federico Emanuel Milani para Nerdearla 2026.
