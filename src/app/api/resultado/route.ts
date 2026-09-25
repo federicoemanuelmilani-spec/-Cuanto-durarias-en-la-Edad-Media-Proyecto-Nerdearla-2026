@@ -1,7 +1,7 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 export async function POST(request: Request) {
-  const { env } = getCloudflareContext();
+  const { env } = getCloudflareContext() as { env: any };
   const { profession, survivalDays } = (await request.json()) as {
     profession: string;
     survivalDays: number;
