@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Screen = "home" | "question" | "analysis" | "result";
 
@@ -24,8 +24,6 @@ type ResultData = {
   profession: string;
   survivalTime: string;
   survivalDays: number;
-  achievement: string;
-  description: string;
   destiny: string;
 };
 
@@ -157,54 +155,74 @@ function getResult(stats: Stats): ResultData {
   const { knowledge, survival, adaptation } = stats;
 
   if (knowledge >= 6 && survival <= 3) {
+    const destinies = [
+      "Intentaste explicar el WiFi. Te acusaron de brujería.",
+      "Corregiste al obispo en público. Grave error.",
+      "Sabías demasiado para una época que prefería no preguntar.",
+    ];
+
+    const destiny =
+      destinies[Math.floor(Math.random() * destinies.length)];
+
     return {
       profession: "📜 Escriba Real",
       survivalTime: "2 años y 4 meses",
       survivalDays: 852,
-      achievement: "Sospechoso profesional de brujería",
-      description:
-        "Tus conocimientos te volvieron valioso para la nobleza. El problema apareció cuando intentaste explicar conceptos demasiado avanzados para la época.",
-      destiny:
-        "Tus conocimientos te consiguieron trabajo en la corte.\n\nEl problema comenzó cuando intentaste explicar cómo funcionaría Internet.",
+      destiny,
     };
   }
 
   if (knowledge >= 5 && adaptation >= 4) {
+    const destinies = [
+      "La tercera explosión fue la que finalmente causó problemas.",
+      "Intentaste crear oro. Creaste una emergencia.",
+      "La frase '¿qué podría salir mal?' fue tu último error.",
+    ];
+
+    const destiny =
+      destinies[Math.floor(Math.random() * destinies.length)];
+
     return {
       profession: "⚗️ Alquimista",
       survivalTime: "1 año y 8 meses",
       survivalDays: 608,
-      achievement: "Mezcló tres cosas y preocupó al reino",
-      description:
-        "Tu curiosidad llamó la atención de todos. Algunos te consideraban un genio. Otros, una amenaza.",
-      destiny:
-        "Tus experimentos impresionaron a varios nobles.\n\nEl incidente con la sopa explosiva no ayudó a tu reputación.",
+      destiny,
     };
   }
 
   if (survival >= 7) {
+    const destinies = [
+      "Te cayó un yunque encima durante una siesta perfectamente calculada.",
+      "Probaste si la espada estaba afilada. Lo estaba.",
+      "Descubriste que los caballos también pueden ganar discusiones.",
+    ];
+
+    const destiny =
+      destinies[Math.floor(Math.random() * destinies.length)];
+
     return {
       profession: "⚒️ Herrero",
       survivalTime: "11 años",
       survivalDays: 4015,
-      achievement: "Más difícil de romper que sus herramientas",
-      description:
-        "Tu capacidad para resolver problemas prácticos te permitió sobrevivir donde otros no pudieron.",
-      destiny:
-        "Tu habilidad para arreglar cosas te volvió indispensable.\n\nNadie recordaba tu nombre, pero todos conocían tu taller.",
+      destiny,
     };
   }
 
   if (adaptation >= 5) {
+    const destinies = [
+      "Escuchaste demasiados secretos y repetiste uno por accidente.",
+      "Aceptaste una apuesta claramente peligrosa.",
+      "Sabías demasiado sobre demasiadas personas.",
+    ];
+
+    const destiny =
+      destinies[Math.floor(Math.random() * destinies.length)];
+
     return {
       profession: "🍺 Tabernero",
       survivalTime: "8 años",
       survivalDays: 2920,
-      achievement: "Conocía todos los secretos del reino",
-      description:
-        "Siempre supiste cómo adaptarte a las circunstancias y sacar ventaja de cualquier situación.",
-      destiny:
-        "Escuchaste todos los secretos del reino.\n\nProbablemente sabías demasiado para tu propio bien.",
+      destiny,
     };
   }
 
@@ -213,34 +231,44 @@ function getResult(stats: Stats): ResultData {
     survival >= 3 &&
     adaptation >= 3
   ) {
+    const destinies = [
+      "Viviste tanto que empezaron a sospechar que eras inmortal.",
+      "Falleciste en paz rodeado de manuscritos sin terminar.",
+      "Pasaste décadas copiando libros y evitando problemas.",
+    ];
+
+    const destiny =
+      destinies[Math.floor(Math.random() * destinies.length)];
+
     return {
       profession: "🙏 Monje",
       survivalTime: "14 años",
       survivalDays: 5110,
-      achievement: "Copió manuscritos durante décadas",
-      description:
-        "Llevaste una vida tranquila, disciplinada y bastante más larga que el promedio medieval.",
-      destiny:
-        "Encontraste una vida tranquila entre libros y manuscritos.\n\nSorprendentemente, fue una de las decisiones más seguras de la época.",
+      destiny,
     };
   }
 
-return {
-  profession: "🌾 Campesino",
-  survivalTime: "6 meses",
-  survivalDays: 180,
-  achievement: "Mala suerte estadísticamente improbable",
-  description:
-    "No hiciste nada especialmente mal. Tampoco especialmente bien. La Edad Media simplemente no colaboró.",
-  destiny:
-    "Trabajaste duro y evitaste llamar la atención.\n\nLa Edad Media encontró igualmente la forma de complicarte la existencia.",
+  const destinies = [
+    "Sobreviviste a la peste. Eso resultó ser la parte fácil.",
+    "Una cabra decidió cambiar tu destino.",
+    "Subestimaste a un ganso con demasiado tiempo libre.",
+  ];
+
+  const destiny =
+    destinies[Math.floor(Math.random() * destinies.length)];
+
+  return {
+    profession: "🌾 Campesino",
+    survivalTime: "6 meses",
+    survivalDays: 180,
+    destiny,
   };
 }
 
 export default function Home() {
   const [screen, setScreen] = useState<Screen>("home");
   const [currentQuestion, setCurrentQuestion] = useState(0);
-
+  const shareCardRef = useRef<HTMLDivElement>(null);
   const [analysisText, setAnalysisText] = useState(
     "Analizando tu destino..."
   );
@@ -250,8 +278,10 @@ export default function Home() {
     survival: 0,
     adaptation: 0,
   });
+
+  const [result, setResult] = useState<ResultData | null>(null);
   const [percentile, setPercentile] = useState<number | null>(null);
-  
+
   useEffect(() => {
     if (screen !== "analysis") return;
 
@@ -270,6 +300,10 @@ export default function Home() {
     }, 900);
 
     const timeout = setTimeout(() => {
+      const finalResult = getResult(stats);
+
+      setResult(finalResult);
+      setPercentile(null);
       setScreen("result");
     }, 3500);
 
@@ -277,7 +311,7 @@ export default function Home() {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [screen]);
+  }, [screen, stats]);
 
   const answerQuestion = (answer: Answer) => {
     setStats((prev) => ({
@@ -294,6 +328,68 @@ export default function Home() {
     setScreen("analysis");
   };
 
+const handleShare = async () => {
+  if (!shareCardRef.current || !result) return;
+
+  try {
+    const { toPng } = await import("html-to-image");
+
+    const node = shareCardRef.current;
+
+    const dataUrl = await toPng(node, {
+      pixelRatio: 2,
+      backgroundColor: "#0d0d0d",
+      style: {
+        margin: "0",
+        transform: "none",
+      },
+    });
+
+    const response = await fetch(dataUrl);
+    const blob = await response.blob();
+
+    const file = new File(
+      [blob],
+      "cuanto-durarias-en-la-edad-media.png",
+      {
+        type: "image/png",
+      }
+    );
+
+    const shareText =
+      `🏰 Yo duré ${result.survivalTime} como ${result.profession}.\n\n` +
+      `¿Cuánto durarías vos?\n` +
+      `${window.location.href}`;
+
+    if (
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({ files: [file] })
+    ) {
+      await navigator.share({
+        files: [file],
+        text: shareText,
+        title: "¿Cuánto durarías en la Edad Media?",
+      });
+
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.download = "cuanto-durarias-en-la-edad-media.png";
+    link.href = dataUrl;
+    link.click();
+
+    const whatsappUrl =
+      `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
+    window.open(whatsappUrl, "_blank");
+
+  } catch (error) {
+    console.error("Error al compartir:", error);
+  }
+};
+
   const restart = () => {
     setStats({
       knowledge: 0,
@@ -302,37 +398,39 @@ export default function Home() {
     });
 
     setCurrentQuestion(0);
+    setResult(null);
+    setPercentile(null);
     setScreen("home");
   };
 
-  const result = getResult(stats);
   useEffect(() => {
-  if (screen !== "result") return;
+    if (screen !== "result" || !result) return;
 
-  let cancelled = false;
+    let cancelled = false;
 
-  fetch("/api/resultado", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      profession: result.profession,
-      survivalDays: result.survivalDays,
-    }),
-  })
-    .then((res) => res.json() as Promise<{ percentile: number }>)
-    .then((data) => {
-      if (!cancelled) setPercentile(data.percentile);
+    fetch("/api/resultado", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        profession: result.profession,
+        survivalDays: result.survivalDays,
+      }),
     })
-    .catch(() => {});
+      .then(
+        (res) =>
+          res.json() as Promise<{ percentile: number }>
+      )
+      .then((data) => {
+        if (!cancelled) {
+          setPercentile(data.percentile);
+        }
+      })
+      .catch(() => {});
 
-  return () => {
-    cancelled = true;
-  };
-}, [screen]);
-
-const knowledgeDisplay = Math.min(10, Math.max(0, stats.knowledge));
-const survivalDisplay = Math.min(10, Math.max(0, stats.survival));
-const adaptationDisplay = Math.min(10, Math.max(0, stats.adaptation));
+    return () => {
+      cancelled = true;
+    };
+  }, [screen, result]);
 
   if (screen === "home") {
     return (
@@ -395,44 +493,71 @@ const adaptationDisplay = Math.min(10, Math.max(0, stats.adaptation));
     );
   }
 
+  if (!result) {
+    return null;
+  }
+
   return (
     <main className="container">
       <div className="card">
-        <p className="resultLabel">
-          ⚔️ El consejo del reino ha decidido
-        </p>
-
-        <h1>{result.profession}</h1>
-
-        <h2>Sobreviviste {result.survivalTime}</h2>
-
-        <p className="description">
-          {result.description}
-        </p>
-
-<div className="destiny">
-  <span>📜 Destino</span>
-
-  <p>{result.destiny}</p>
-</div>
-<div className="shareCard">
-  <p className="shareCard-eyebrow">🏰 ¿Cuánto durarías en la Edad Media?</p>
-  <p className="shareCard-profession">{result.profession}</p>
-  <p className="shareCard-time">⏳ {result.survivalTime}</p>
-  <p className="shareCard-achievement">🏆 {result.achievement}</p>
-  {percentile !== null && (
-  <p className="shareCard-percentile">
-    📈 Durarías más que el {Math.max(1, percentile)}% del reino
+        <div className="shareCard" ref={shareCardRef}>
+  <p className="shareCard-eyebrow">
+    🏰 ¿Cuánto durarías en la Edad Media?
   </p>
-)}
-  <p className="shareCard-footer">Nerdearla 2026 · Probalo vos también</p>
+
+  <div className="shareCard-section">
+    <span className="shareCard-label">PROFESIÓN</span>
+
+    <p className="shareCard-profession">
+      {result.profession}
+    </p>
+  </div>
+
+  <div className="shareCard-section">
+    <span className="shareCard-label">⏳ SOBREVIVISTE</span>
+
+    <p className="shareCard-time">
+      {result.survivalTime}
+    </p>
+  </div>
+
+  <div className="shareCard-section shareCard-destiny">
+    <span className="shareCard-label">⚰️ DESENLACE</span>
+
+    <p className="shareCard-achievement">
+      {result.destiny}
+    </p>
+  </div>
+
+  {percentile !== null && (
+    <p className="shareCard-percentile">
+      📈 Durarías más que el {Math.max(1, percentile)}% del reino
+    </p>
+  )}
+
+  <p className="shareCard-footer">
+    <strong>Nerdearla 2026</strong> · Probalo vos también
+  </p>
 </div>
+        <p className="shareHint">
+          📸 Capturá esta tarjeta y compartila
+        </p>
 
-<p className="shareHint">📸 Capturá esta tarjeta y compartila</p>
+        <div className="buttonRow">
+          <button
+  className="shareButton"
+  onClick={handleShare}
+>
+  📤 Compartir
+</button>
 
-<button className="restartButton" onClick={restart}>
-          🔄 Intentar nuevamente
-        </button>
+          <button
+            className="restartButton"
+            onClick={restart}
+          >
+            🔄 Intentar nuevamente
+          </button>
+        </div>
       </div>
     </main>
   );

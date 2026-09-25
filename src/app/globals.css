@@ -234,63 +234,140 @@ button:hover {
 }
 .shareCard {
   margin-top: 24px;
-  padding: 28px 24px;
+  padding: 30px 26px;
+
   border-radius: 20px;
+
   text-align: center;
 
-  background: linear-gradient(160deg, #1a1512 0%, #0d0d0d 100%);
+  background:
+    linear-gradient(
+      160deg,
+      #1a1512 0%,
+      #0d0d0d 100%
+    );
+
   border: 2px solid var(--gold);
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+
+  box-shadow:
+    0 0 30px rgba(212, 175, 55, 0.15);
 }
 
 .shareCard-eyebrow {
-  margin: 0 0 12px;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--muted);
+  margin: 0 0 28px;
+
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  color: var(--text);
+}
+
+.shareCard-section {
+  margin-top: 22px;
+}
+
+.shareCard-label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+
+  font-weight: 800;
+
+  color: var(--gold);
 }
 
 .shareCard-profession {
-  margin: 0 0 8px;
-  font-size: 1.8rem;
+  margin: 0;
+
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+
   font-weight: 800;
+
   color: var(--text);
 }
 
 .shareCard-time {
-  margin: 0 0 6px;
-  font-size: 1.1rem;
-  color: var(--gold);
-  font-weight: 700;
+  margin: 0;
+
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  color: var(--text);
+}
+
+.shareCard-destiny {
+  margin-top: 28px;
 }
 
 .shareCard-achievement {
   margin: 0;
+
+  font-size: clamp(1.05rem, 2.8vw, 1.3rem);
+  line-height: 1.45;
+
+  font-weight: 700;
+
+  color: var(--text);
+}
+
+.shareCard-percentile {
+  margin: 24px 0 0;
+
   font-size: 0.95rem;
-  color: var(--muted);
+  line-height: 1.4;
+
+  font-weight: 700;
+
+  color: var(--gold);
 }
 
 .shareCard-footer {
-  margin: 16px 0 0;
-  font-size: 0.75rem;
+  margin: 28px 0 0;
+
+  font-size: 0.8rem;
+
   color: var(--muted);
-  opacity: 0.7;
+
+  opacity: 0.8;
 }
 
-.shareHint {
-  text-align: center;
-  margin: 12px 0 0;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-.shareCard-percentile {
-  margin: 10px 0 0;
-  font-size: 0.95rem;
+.shareCard-footer strong {
   color: var(--gold);
 }
 .restartButton {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.buttonRow button {
+  flex: 1;
+}
+.shareCard-achievement {
+  margin: 20px 0 0;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  line-height: 1.45;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.shareCard-percentile {
+  margin: 18px 0 0;
+  font-size: 0.95rem;
+  color: var(--gold);
+  font-weight: 700;
 }
