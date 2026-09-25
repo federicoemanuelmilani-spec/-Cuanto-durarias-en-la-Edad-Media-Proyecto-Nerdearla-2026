@@ -50,7 +50,7 @@ const questions: Question[] = [
         stats: { knowledge: 0, survival: 0, adaptation: 1 },
       },
       {
-        text: "Energética",
+        text: "Energizante",
         stats: { knowledge: 0, survival: -1, adaptation: 2 },
       },
     ],
@@ -409,32 +409,6 @@ const adaptationDisplay = Math.min(10, Math.max(0, stats.adaptation));
         <p className="description">
           {result.description}
         </p>
-<div className="statsBox">
-  <h3>📊 Perfil medieval</h3>
-
-  <div className="statRow">
-    <span>📚 Conocimiento</span>
-    <strong>{knowledgeDisplay}/10</strong>
-  </div>
-
-  <div className="statRow">
-    <span>🛡️ Supervivencia</span>
-    <strong>{survivalDisplay}/10</strong>
-  </div>
-
-  <div className="statRow">
-    <span>🤝 Adaptación</span>
-    <strong>{adaptationDisplay}/10</strong>
-  </div>
-</div>
-
-<div className="achievement">
-  <span>🏆 Logro desbloqueado</span>
-
-  <p>
-    <strong>{result.achievement}</strong>
-  </p>
-</div>
 
 <div className="destiny">
   <span>📜 Destino</span>
@@ -448,7 +422,7 @@ const adaptationDisplay = Math.min(10, Math.max(0, stats.adaptation));
   <p className="shareCard-achievement">🏆 {result.achievement}</p>
   {percentile !== null && (
   <p className="shareCard-percentile">
-    📈 Durarías más que el {percentile}% del reino
+    📈 Durarías más que el {Math.max(1, percentile)}% del reino
   </p>
 )}
   <p className="shareCard-footer">Nerdearla 2026 · Probalo vos también</p>
