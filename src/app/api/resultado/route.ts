@@ -22,15 +22,15 @@ export async function POST(request: Request) {
     .bind(profession, survivalDays, Date.now())
     .run();
 
-  const totalRow = await env.DB.prepare(
-    "SELECT COUNT(*) as total FROM resultados"
-  ).first<{ total: number }>();
+  const totalRow = (await env.DB.prepare(
+  "SELECT COUNT(*) as total FROM resultados"
+).first()) as { total: number } | null;
 
-  const lessRow = await env.DB.prepare(
-    "SELECT COUNT(*) as c FROM resultados WHERE survival_days < ?"
-  )
-    .bind(survivalDays)
-    .first<{ c: number }>();
+  const lessRow = (await env.DB.prepare(
+  "SELECT COUNT(*) as c FROM resultados WHERE survival_days < ?"
+)
+  .bind(survivalDays)
+  .first()) as { c: number } | null;
 
   const total = totalRow?.total ?? 1;
   const less = lessRow?.c ?? 0;
